@@ -51,7 +51,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 
 		if claims, ok := token.Claims.(*helper.UserClaims); ok && token.Valid {
 			// create context on http request
-			ctx := context.WithValue(context.Background(), model.ContextKeyUserInformation, claims)
+			ctx := context.WithValue(r.Context(), model.ContextKeyUserInformation, claims)
 			r = r.WithContext(ctx)
 
 			next.ServeHTTP(w, r)
